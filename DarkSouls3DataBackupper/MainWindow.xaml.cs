@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DarkSouls3DataBackupper
 {
@@ -42,6 +30,34 @@ namespace DarkSouls3DataBackupper
         private void SetBackUpDataPath()
         {
             backUpDirectoryBox.Text = System.IO.Path.Combine(PathUtility.GetDS3SaveDataPath(), "backups");
+        }
+
+        private void saveDataDirectoryChangeButton_Click(object sender, RoutedEventArgs e)
+        {
+            var path = showDirectorySelectDialogAndGetPath();
+            if (path != "")
+            {
+                saveDataDirectoryBox.Text = path;
+            }
+        }
+
+        private void backupDirectoryChangeButton_Click(object sender, RoutedEventArgs e)
+        {
+            var path = showDirectorySelectDialogAndGetPath();
+            if (path != "")
+            {
+                backUpDirectoryBox.Text = path;
+            }
+        }
+
+        private string showDirectorySelectDialogAndGetPath()
+        {
+            var dialog = new System.Windows.Forms.OpenFileDialog() { FileName = "SelectFolder", Filter = "Folder|.", CheckFileExists = false };
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                return System.IO.Path.GetDirectoryName(dialog.FileName);
+            }
+            return "";
         }
     }
 }
