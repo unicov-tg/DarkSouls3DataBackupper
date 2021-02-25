@@ -59,5 +59,26 @@ namespace DarkSouls3DataBackupper
             }
             return "";
         }
+
+        private void restoreButton_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            var backUp = InitializeDataBackUp();
+            backUp.Save();
+        }
+
+        private DataBackUp InitializeDataBackUp()
+        {
+            var saveDataPath = saveDataDirectoryBox.Text;
+            var backUpPath = backUpDirectoryBox.Text;
+            var backUpFilename = backUpFileNameBox.Text;
+
+            if (backUpFilename == "")
+            {
+                var now = DateTime.Now;
+                backUpFilename = now.ToString().Replace(' ', '-');
+            }
+
+            return new DataBackUp(saveDataPath, backUpPath, backUpFilename);
+        }
     }
 }
