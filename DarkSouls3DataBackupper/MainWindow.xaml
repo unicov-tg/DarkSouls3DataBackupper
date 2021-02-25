@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DarkSouls3DataBackupper"
         mc:Ignorable="d"
-        Title="DarkSouls 3 データバックアップツール" Height="440" Width="580" ResizeMode="NoResize">
-    <Grid>
-        <TextBox x:Name="saveDataDirectoryBox" Height="23" Margin="10,38,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="461">
+        Title="DarkSouls 3 データバックアップツール" Height="460" Width="580" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,-19">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="32*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="saveDataDirectoryBox" Height="23" Margin="10,38,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="461" Grid.ColumnSpan="2">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -18,9 +22,9 @@
             </TextBox.RenderTransform>
         </TextBox>
         <Label x:Name="label" Content="DarkSouls 3 セーブデータフォルダ" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="saveDataDirectoryChangeButton" Content="選択" HorizontalAlignment="Left" Margin="486,37,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+        <Button x:Name="saveDataDirectoryChangeButton" Content="選択" HorizontalAlignment="Left" Margin="38,37,0,0" VerticalAlignment="Top" Width="75" Height="23" Grid.Column="1"/>
         <Label x:Name="label1" Content="セーブデータバックアップ先" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="backUpDirectoryBox" Height="23" Margin="10,110,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="460">
+        <TextBox x:Name="backUpDirectoryBox" Height="23" Margin="10,110,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="460" Grid.ColumnSpan="2">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -30,12 +34,12 @@
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
-        <Button x:Name="backupDirectoryChangeButton" Content="選択" HorizontalAlignment="Left" Margin="486,109,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+        <Button x:Name="backupDirectoryChangeButton" Content="選択" HorizontalAlignment="Left" Margin="38,109,0,0" VerticalAlignment="Top" Width="75" Height="23" Grid.Column="1"/>
         <Button x:Name="restoreButton" Content="セーブデータを復元" HorizontalAlignment="Left" Margin="10,381,0,0" VerticalAlignment="Top" Width="128"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,181,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250"/>
-        <Label x:Name="label1_Copy" Content="バックアップファイル名" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+        <Label x:Name="label1_Copy" Content="バックアップファイル名(空の場合は現在時刻がファイル名になります)" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top"/>
         <Button x:Name="restoreButton_Copy" Content="現在のデータをバックアップ" HorizontalAlignment="Left" Margin="265,181,0,0" VerticalAlignment="Top" Width="157" Height="23"/>
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="167" Margin="10,209,0,0" VerticalAlignment="Top" Width="551">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="167" Margin="10,209,0,0" VerticalAlignment="Top" Width="551" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="バックアップファイル名" Width="380"/>

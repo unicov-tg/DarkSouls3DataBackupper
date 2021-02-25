@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 
 namespace DarkSouls3DataBackupper
 {
+    using Libs;
+
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
@@ -23,6 +25,23 @@ namespace DarkSouls3DataBackupper
         public MainWindow()
         {
             InitializeComponent();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            SetDS3SaveDataPath();
+            SetBackUpDataPath();
+        }
+
+        private void SetDS3SaveDataPath()
+        {
+            saveDataDirectoryBox.Text = PathUtility.GetDS3SaveDataPath();
+        }
+
+        private void SetBackUpDataPath()
+        {
+            backUpDirectoryBox.Text = System.IO.Path.Combine(PathUtility.GetDS3SaveDataPath(), "backups");
         }
     }
 }
