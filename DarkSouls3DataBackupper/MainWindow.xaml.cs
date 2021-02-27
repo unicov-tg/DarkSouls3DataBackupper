@@ -4,6 +4,7 @@ using System.Windows;
 namespace DarkSouls3DataBackupper
 {
     using Libs;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
@@ -69,19 +70,27 @@ namespace DarkSouls3DataBackupper
             return "";
         }
 
-        private void backUpButton_Click(object sender, RoutedEventArgs e)
+        private async void backUpButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            backUpButton.IsEnabled = false;
+
+            var backUp = InitializeDataBackUp();
+            Action action = () =>
             {
-                var backUp = InitializeDataBackUp();
-                backUp.Save();
-                UpdateBackUpList();
-                backUpFileNameBox.Text = "";
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+                try
+                {
+                    backUp.Save();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            };
+            await Task.Run(action);
+
+            UpdateBackUpList();
+            backUpFileNameBox.Text = "";
+            backUpButton.IsEnabled = true;
         }
 
         private DataBackUp InitializeDataBackUp()
@@ -116,7 +125,6 @@ namespace DarkSouls3DataBackupper
             {
                 MessageBox.Show(ex.Message);
             }
-            
         }
 
         private string GetSelectedBackUpFile()
