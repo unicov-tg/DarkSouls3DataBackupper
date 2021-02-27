@@ -43,7 +43,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="バックアップファイル名" Width="380" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="作成日時" Width="145" DisplayMemberBinding="{Binding CreatedAt}"/>
+                    <GridViewColumn Header="作成日時" Width="145" DisplayMemberBinding="{Binding CreatedAtString}"/>
                 </GridView>
             </ListView.View>
         </ListView>

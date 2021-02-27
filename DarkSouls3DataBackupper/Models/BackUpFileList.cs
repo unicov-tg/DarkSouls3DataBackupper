@@ -10,33 +10,43 @@ namespace DarkSouls3DataBackupper.Models
 {
     class BackUpFileList
     {
-        public List<BackUpFile> List { get; private set; }
+        public ObservableCollection<BackUpFile> List { get; private set; }
         
         private readonly string backUpPath;
-        
 
         public BackUpFileList(string backUpPath)
         {
             this.backUpPath = backUpPath;
-            ReadBackUpFiles();
+            List = new ObservableCollection<BackUpFile>();
+            UpdateBackUpFileList();
         }
 
-        public void ReadBackUpFiles()
+        public void UpdateBackUpFileList()
+        {
+            List.Clear();
+
+            foreach(var file in GetBackUpFiles())
+            {
+                List.Add(file);
+            }
+        }
+
+        private IEnumerable<BackUpFile> GetBackUpFiles()
         {
             var files = Directory.GetFiles(backUpPath, "*.zip");
-
-            List = files.Select(file => new BackUpFile(file, File.GetCreationTime(file).ToString())).ToList();
+            return files.Select(file => new BackUpFile(file, File.GetCreationTime(file))).OrderByDescending(file => file.CreatedAt);
         }
     }
 
     class BackUpFile
     {
         public string Name { get; private set; }
-        public string CreatedAt { get; private set; }
+        public string CreatedAtString => CreatedAt.ToString();
 
         public string FilePath { get; private set; }
+        public DateTime CreatedAt { get; private set; }
 
-        public BackUpFile(string path, string createdAt)
+        public BackUpFile(string path, DateTime createdAt)
         {
             FilePath = path;
             Name = Path.GetFileNameWithoutExtension(path);
