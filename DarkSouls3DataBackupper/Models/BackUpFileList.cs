@@ -39,8 +39,15 @@ namespace DarkSouls3DataBackupper.Models
 
         private IEnumerable<BackUpFile> GetBackUpFiles()
         {
-            var files = Directory.GetFiles(backUpPath, "*.zip");
-            return files.Select(file => new BackUpFile(file, File.GetCreationTime(file))).OrderByDescending(file => file.CreatedAt);
+            try
+            {
+                var files = Directory.GetFiles(backUpPath, "*.zip");
+                return files.Select(file => new BackUpFile(file, File.GetCreationTime(file))).OrderByDescending(file => file.CreatedAt);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                return new List<BackUpFile>();
+            }
         }
     }
 
