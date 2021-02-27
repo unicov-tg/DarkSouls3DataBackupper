@@ -4,6 +4,7 @@ using System.Windows;
 namespace DarkSouls3DataBackupper
 {
     using Libs;
+    using System.Diagnostics;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -132,6 +133,30 @@ namespace DarkSouls3DataBackupper
             var index = backUpFileListView.SelectedIndex;
             var selectedFile = BackUpFileList.List[index];
             return selectedFile.FilePath;
+        }
+
+        private void openSaveDataPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start("explorer.exe", saveDataDirectoryBox.Text);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void openBackUpPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start("explorer.exe", backUpDirectoryBox.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
