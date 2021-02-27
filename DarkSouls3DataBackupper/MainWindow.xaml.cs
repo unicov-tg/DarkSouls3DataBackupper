@@ -74,7 +74,7 @@ namespace DarkSouls3DataBackupper
             if (backUpFilename == "")
             {
                 var now = DateTime.Now;
-                backUpFilename = now.ToString().Replace(' ', '-');
+                backUpFilename = now.ToString("yyyyMMddHHmmss");
             }
 
             return new DataBackUp(saveDataPath, backUpPath, backUpFilename);
