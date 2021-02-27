@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.IO.Compression;
 
 namespace DarkSouls3DataBackupper.Libs
 {
@@ -21,13 +22,14 @@ namespace DarkSouls3DataBackupper.Libs
         {
             this.saveDataPath = saveDataPath;
             this.backUpPath = backUpPath;
-            this.backUpFileName = backUpFileName;
+            this.backUpFileName = backUpFileName + ".zip";
         }
 
         public void Save()
         {
             CreateWorkingDirectory();
             CopyCurrentDataToTemp();
+            CreateZip();
         }
 
         private void CreateWorkingDirectory()
@@ -42,8 +44,14 @@ namespace DarkSouls3DataBackupper.Libs
             {
                 var sourcePath = Path.Combine(saveDataPath, target);
                 var destPath = Path.Combine(TempPath, target);
-                File.Copy(sourcePath, destPath);
+                File.Copy(sourcePath, destPath, true);
             }
+        }
+
+        private void CreateZip()
+        {
+            var backUpDestination = Path.Combine(backUpPath, backUpFileName);
+            ZipFile.CreateFromDirectory(TempPath, backUpDestination);
         }
     }
 }
