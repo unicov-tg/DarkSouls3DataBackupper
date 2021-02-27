@@ -96,5 +96,12 @@ namespace DarkSouls3DataBackupper
         {
             BackUpFileList.UpdateBackUpFileList();
         }
+
+        private void restoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            var index = backUpFileListView.SelectedIndex;
+            var selectedFile = BackUpFileList.List[index];
+            Console.WriteLine(selectedFile);
+        }
     }
 }
