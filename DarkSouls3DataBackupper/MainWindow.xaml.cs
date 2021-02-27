@@ -10,6 +10,8 @@ namespace DarkSouls3DataBackupper
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Models.BackUpFileList BackUpFileList;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -20,6 +22,7 @@ namespace DarkSouls3DataBackupper
         {
             SetDS3SaveDataPath();
             SetBackUpDataPath();
+            SetBackUpFileList();
         }
 
         private void SetDS3SaveDataPath()
@@ -30,6 +33,11 @@ namespace DarkSouls3DataBackupper
         private void SetBackUpDataPath()
         {
             backUpDirectoryBox.Text = System.IO.Path.Combine(PathUtility.GetDS3SaveDataPath(), "backups");
+        }
+
+        private void SetBackUpFileList()
+        {
+            this.BackUpFileList = new Models.BackUpFileList(backUpDirectoryBox.Text);
         }
 
         private void saveDataDirectoryChangeButton_Click(object sender, RoutedEventArgs e)

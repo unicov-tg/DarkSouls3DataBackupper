@@ -65,7 +65,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Libs\DataBackUp.cs" />
+    <Compile Include="Models\BackUpFileList.cs" />
+    <Compile Include="Models\DataBackUp.cs" />
     <Compile Include="Libs\PathUtility.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
