@@ -19,11 +19,17 @@ namespace DarkSouls3DataBackupper.Libs
         /// <returns>セーブデータのパス</returns>
         public static string GetDS3SaveDataPath()
         {
-            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var path = Path.Combine(appDataPath, "DarkSoulsIII");
-            var saveDataDirectoryPath = Directory.GetDirectories(path).First();
+            var directories = Directory.GetDirectories(DS3AppDataPath);
 
-            return saveDataDirectoryPath;
+            foreach(var directory in directories)
+            {
+                if(CheckDirectoryContainsTargetFiles(directory))
+                {
+                    return directory;
+                }
+            }
+
+            throw new Exception($"{DS3AppDataPath}にセーブデータを含むフォルダが存在しません。");
         }
 
         public static bool CheckDirectoryContainsTargetFiles(string path)
