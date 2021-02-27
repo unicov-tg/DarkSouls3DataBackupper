@@ -40,7 +40,6 @@ namespace DarkSouls3DataBackupper
                 saveDataDirectoryBox.Text = path;
             }
         }
-
         private void backupDirectoryChangeButton_Click(object sender, RoutedEventArgs e)
         {
             var path = showDirectorySelectDialogAndGetPath();
@@ -60,7 +59,7 @@ namespace DarkSouls3DataBackupper
             return "";
         }
 
-        private void restoreButton_Copy_Click(object sender, RoutedEventArgs e)
+        private void backUpButton_Click(object sender, RoutedEventArgs e)
         {
             var backUp = InitializeDataBackUp();
             backUp.Save();

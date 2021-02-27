@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace DarkSouls3DataBackupper.Libs
 {
     class DataBackUp
     {
-        private string saveDataPath;
-        private string backUpPath;
-        private string backUpFileName;
+        private readonly string[] targetFileNames = new string[2] { "DS30000.sl2", "DS30000.sl3" };
+
+        private readonly string saveDataPath;
+        private readonly string backUpPath;
+        private readonly string backUpFileName;
+
+        private string TempPath => Path.Combine(backUpPath, "tmp");
 
         public DataBackUp(string saveDataPath, string backUpPath, string backUpFileName)
         {
@@ -21,17 +26,24 @@ namespace DarkSouls3DataBackupper.Libs
 
         public void Save()
         {
-            checkAndCreateBackUpDirectory();
+            CreateWorkingDirectory();
+            CopyCurrentDataToTemp();
         }
 
-        private void checkAndCreateBackUpDirectory()
+        private void CreateWorkingDirectory()
         {
-            if (System.IO.Directory.Exists(backUpPath))
-            {
-                return;
-            }
+            Directory.CreateDirectory(backUpPath);
+            Directory.CreateDirectory(TempPath);
+        }
 
-            System.IO.Directory.CreateDirectory(backUpPath);
+        private void CopyCurrentDataToTemp()
+        {
+            foreach(var target in targetFileNames)
+            {
+                var sourcePath = Path.Combine(saveDataPath, target);
+                var destPath = Path.Combine(TempPath, target);
+                File.Copy(sourcePath, destPath);
+            }
         }
     }
 }
