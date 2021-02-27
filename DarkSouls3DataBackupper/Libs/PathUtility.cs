@@ -28,5 +28,27 @@ namespace DarkSouls3DataBackupper.Libs
         {
             return Path.Combine(backUpPath, "tmp");
         }
+
+        public static string GetUniqueFileName(string path, string name, string ext)
+        {
+            if (!File.Exists(Path.Combine(path, name + ext)))
+            {
+                return name + ext;
+            }
+
+            int count = 1;
+
+            while (true)
+            {
+                var fileName = Path.Combine(path, name + $"({count})" + ext);
+                if(!File.Exists(fileName))
+                {
+                    break;
+                }
+                count += 1;
+            }
+
+            return name + $"({count})" + ext;
+        }
     }
 }

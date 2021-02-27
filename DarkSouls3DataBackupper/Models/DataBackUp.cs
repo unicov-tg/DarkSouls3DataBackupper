@@ -20,7 +20,7 @@ namespace DarkSouls3DataBackupper.Libs
         {
             this.saveDataPath = saveDataPath;
             this.backUpPath = backUpPath;
-            this.backUpFileName = backUpFileName + ".zip";
+            this.backUpFileName = PathUtility.GetUniqueFileName(backUpPath, backUpFileName, ".zip");
         }
 
         public void Save()

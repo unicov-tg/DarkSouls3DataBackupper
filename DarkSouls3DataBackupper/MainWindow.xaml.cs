@@ -82,7 +82,6 @@ namespace DarkSouls3DataBackupper
             {
                 MessageBox.Show(ex.Message);
             }
-            
         }
 
         private DataBackUp InitializeDataBackUp()
