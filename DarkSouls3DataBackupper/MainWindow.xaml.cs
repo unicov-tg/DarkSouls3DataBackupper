@@ -71,10 +71,18 @@ namespace DarkSouls3DataBackupper
 
         private void backUpButton_Click(object sender, RoutedEventArgs e)
         {
-            var backUp = InitializeDataBackUp();
-            backUp.Save();
-            UpdateBackUpList();
-            backUpFileNameBox.Text = "";
+            try
+            {
+                var backUp = InitializeDataBackUp();
+                backUp.Save();
+                UpdateBackUpList();
+                backUpFileNameBox.Text = "";
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private DataBackUp InitializeDataBackUp()
