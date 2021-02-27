@@ -25,9 +25,18 @@ namespace DarkSouls3DataBackupper.Libs
 
         public void Save()
         {
+            CheckValidFileName();
             CreateWorkingDirectory();
             CopyCurrentDataToTemp();
             CreateZip();
+        }
+
+        private void CheckValidFileName()
+        {
+            if (PathUtility.CheckFileNameContainsInvalidCharacter(backUpFileName))
+            {
+                throw new Exception("バックアップファイル名に使用できない文字が含まれています。");
+            }
         }
 
         private void CreateWorkingDirectory()

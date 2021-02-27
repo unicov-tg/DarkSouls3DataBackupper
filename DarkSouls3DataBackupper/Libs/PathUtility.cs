@@ -50,5 +50,12 @@ namespace DarkSouls3DataBackupper.Libs
 
             return name + $"({count})" + ext;
         }
+
+        public static bool CheckFileNameContainsInvalidCharacter(string fileName)
+        {
+            var invalidChars = Path.GetInvalidPathChars().Concat(Path.GetInvalidFileNameChars()).Distinct().ToArray();
+
+            return fileName.IndexOfAny(invalidChars) > 0;
+        }
     }
 }
