@@ -29,7 +29,15 @@ namespace DarkSouls3DataBackupper
 
         private void SetDS3SaveDataPath()
         {
-            saveDataDirectoryBox.Text = PathUtility.GetDS3SaveDataPath();
+            try
+            {
+                saveDataDirectoryBox.Text = PathUtility.GetDS3SaveDataPath();
+            }
+            catch(System.IO.DirectoryNotFoundException)
+            {
+                MessageBox.Show($"ダークソウル3のセーブデータが{PathUtility.DS3AppDataPath}に存在しません。");
+                Environment.Exit(1);
+            }
         }
 
         private void SetBackUpDataPath()

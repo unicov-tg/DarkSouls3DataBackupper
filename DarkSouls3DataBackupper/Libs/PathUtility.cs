@@ -11,6 +11,8 @@ namespace DarkSouls3DataBackupper.Libs
     {
         public static readonly string[] TargetFileNames = new string[2] { "DS30000.sl2", "DS30000.sl3" };
 
+        public static string DS3AppDataPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DarkSoulsIII");
+
         /// <summary>
         /// ダークソウル3のセーブデータパスを取得
         /// </summary>
