@@ -38,6 +38,11 @@ namespace DarkSouls3DataBackupper
                 MessageBox.Show($"ダークソウル3のセーブデータが{PathUtility.DS3AppDataPath}に存在しません。");
                 Environment.Exit(1);
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Environment.Exit(1);
+            }
         }
 
         private void SetBackUpDataPath()
