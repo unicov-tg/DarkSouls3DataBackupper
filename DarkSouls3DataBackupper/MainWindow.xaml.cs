@@ -58,6 +58,7 @@ namespace DarkSouls3DataBackupper
             if (path != "")
             {
                 backUpDirectoryBox.Text = path;
+                BackUpFileList.ChangeDiretory(path);
             }
         }
 
@@ -116,6 +117,11 @@ namespace DarkSouls3DataBackupper
 
         private void restoreButton_Click(object sender, RoutedEventArgs e)
         {
+            if (backUpFileListView.SelectedIndex < 0)
+            {
+                return;
+            }
+
             try
             {
                 var dataRestore = new Models.DataRestore(saveDataDirectoryBox.Text, GetSelectedBackUpFile(), PathUtility.GetTempPath(backUpDirectoryBox.Text));
