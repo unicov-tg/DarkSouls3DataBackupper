@@ -154,7 +154,7 @@ namespace DarkSouls3DataBackupper
                     InitializeDataBackUp().Save();
                     backUpFileNameBox.Text = "";
                 }
-                var dataRestore = new Models.DataRestore(saveDataDirectoryBox.Text, GetSelectedBackUpFile(), PathUtility.GetTempPath(backUpDirectoryBox.Text));
+                var dataRestore = new Models.DataRestore(saveDataDirectoryBox.Text, GetSelectedBackUpFile().FilePath, PathUtility.GetTempPath(backUpDirectoryBox.Text));
                 dataRestore.Restore();
                 MessageBox.Show("セーブデータを復元しました。");
             }
@@ -166,11 +166,11 @@ namespace DarkSouls3DataBackupper
             UpdateBackUpList();
         }
 
-        private string GetSelectedBackUpFile()
+        private Models.BackUpFile GetSelectedBackUpFile()
         {
             var index = backUpFileListView.SelectedIndex;
             var selectedFile = BackUpFileList.List[index];
-            return selectedFile.FilePath;
+            return selectedFile;
         }
 
         private void openSaveDataPathButton_Click(object sender, RoutedEventArgs e)
@@ -190,6 +190,34 @@ namespace DarkSouls3DataBackupper
             try
             {
                 Process.Start("explorer.exe", backUpDirectoryBox.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (backUpFileListView.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            try
+            {
+                var deleteTarget = GetSelectedBackUpFile();
+                var result = MessageBox.Show($"{deleteTarget.Name} を削除しますか？", "バックアップの削除", MessageBoxButton.YesNo);
+                if (result != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+
+                System.IO.File.Delete(deleteTarget.FilePath);
+
+                MessageBox.Show($"{deleteTarget.Name} を削除しました。");
+
+                UpdateBackUpList();
             }
             catch (Exception ex)
             {
