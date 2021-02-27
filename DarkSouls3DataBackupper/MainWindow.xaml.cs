@@ -74,7 +74,7 @@ namespace DarkSouls3DataBackupper
 
         private async void backUpButton_Click(object sender, RoutedEventArgs e)
         {
-            backUpButton.IsEnabled = false;
+            DisableActions();
 
             var backUp = InitializeDataBackUp();
             Action action = () =>
@@ -92,7 +92,8 @@ namespace DarkSouls3DataBackupper
 
             UpdateBackUpList();
             backUpFileNameBox.Text = "";
-            backUpButton.IsEnabled = true;
+
+            EnableActions();
         }
 
         private DataBackUp InitializeDataBackUp()
@@ -124,6 +125,12 @@ namespace DarkSouls3DataBackupper
 
             try
             {
+                var backUpCurrentData = backUpCurrentDataCheckBox.IsChecked ?? false;
+                if (backUpCurrentData)
+                {
+                    InitializeDataBackUp().Save();
+                    backUpFileNameBox.Text = "";
+                }
                 var dataRestore = new Models.DataRestore(saveDataDirectoryBox.Text, GetSelectedBackUpFile(), PathUtility.GetTempPath(backUpDirectoryBox.Text));
                 dataRestore.Restore();
                 MessageBox.Show("セーブデータを復元しました。");
@@ -132,6 +139,8 @@ namespace DarkSouls3DataBackupper
             {
                 MessageBox.Show(ex.Message);
             }
+
+            UpdateBackUpList();
         }
 
         private string GetSelectedBackUpFile()
@@ -163,6 +172,18 @@ namespace DarkSouls3DataBackupper
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void DisableActions()
+        {
+            backUpButton.IsEnabled = false;
+            restoreButton.IsEnabled = false;
+        }
+
+        private void EnableActions()
+        {
+            backUpButton.IsEnabled = true;
+            restoreButton.IsEnabled = true;
         }
     }
 }
