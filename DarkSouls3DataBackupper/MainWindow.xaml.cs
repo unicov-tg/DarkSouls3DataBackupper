@@ -37,7 +37,9 @@ namespace DarkSouls3DataBackupper
 
         private void SetBackUpFileList()
         {
-            this.BackUpFileList = new Models.BackUpFileList(backUpDirectoryBox.Text);
+            // TODO: backupDirectoryBoxに入れてるパスをクラス側で持つ
+            BackUpFileList = new Models.BackUpFileList(backUpDirectoryBox.Text);
+            backUpFileListView.ItemsSource = BackUpFileList.List;
         }
 
         private void saveDataDirectoryChangeButton_Click(object sender, RoutedEventArgs e)

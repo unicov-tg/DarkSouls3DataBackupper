@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace DarkSouls3DataBackupper.Models
 {
@@ -30,13 +31,16 @@ namespace DarkSouls3DataBackupper.Models
 
     class BackUpFile
     {
-        public readonly string name;
-        public readonly string createdAt;
+        public string Name { get; private set; }
+        public string CreatedAt { get; private set; }
 
-        public BackUpFile(string name, string createdAt)
+        public string FilePath { get; private set; }
+
+        public BackUpFile(string path, string createdAt)
         {
-            this.name = name;
-            this.createdAt = createdAt;
+            FilePath = path;
+            Name = Path.GetFileNameWithoutExtension(path);
+            CreatedAt = createdAt;
         }
     }
 }
