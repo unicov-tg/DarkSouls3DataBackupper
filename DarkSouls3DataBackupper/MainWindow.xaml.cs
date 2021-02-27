@@ -73,6 +73,8 @@ namespace DarkSouls3DataBackupper
         {
             var backUp = InitializeDataBackUp();
             backUp.Save();
+            UpdateBackUpList();
+            backUpFileNameBox.Text = "";
         }
 
         private DataBackUp InitializeDataBackUp()
@@ -88,6 +90,11 @@ namespace DarkSouls3DataBackupper
             }
 
             return new DataBackUp(saveDataPath, backUpPath, backUpFilename);
+        }
+
+        private void UpdateBackUpList()
+        {
+            BackUpFileList.UpdateBackUpFileList();
         }
     }
 }
