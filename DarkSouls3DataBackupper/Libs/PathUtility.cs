@@ -21,5 +21,10 @@ namespace DarkSouls3DataBackupper.Libs
 
             return saveDataDirectoryPath;
         }
+
+        public static void CreateDirectory(string path)
+        {
+            Directory.CreateDirectory(path);
+        }
     }
 }
