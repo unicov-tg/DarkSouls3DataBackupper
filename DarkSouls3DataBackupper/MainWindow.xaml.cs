@@ -47,11 +47,21 @@ namespace DarkSouls3DataBackupper
         private void saveDataDirectoryChangeButton_Click(object sender, RoutedEventArgs e)
         {
             var path = showDirectorySelectDialogAndGetPath();
-            if (path != "")
+            if (path == "")
+            {
+                return;
+            }
+
+            if (PathUtility.CheckDirectoryContainsTargetFiles(path))
             {
                 saveDataDirectoryBox.Text = path;
             }
+            else
+            {
+                MessageBox.Show("指定されたフォルダにセーブデータが存在しません。");
+            }
         }
+
         private void backupDirectoryChangeButton_Click(object sender, RoutedEventArgs e)
         {
             var path = showDirectorySelectDialogAndGetPath();

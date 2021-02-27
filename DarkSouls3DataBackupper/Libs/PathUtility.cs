@@ -24,6 +24,19 @@ namespace DarkSouls3DataBackupper.Libs
             return saveDataDirectoryPath;
         }
 
+        public static bool CheckDirectoryContainsTargetFiles(string path)
+        {
+            foreach(var target in TargetFileNames)
+            {
+                if(!File.Exists(Path.Combine(path, target)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public static string GetTempPath(string backUpPath)
         {
             return Path.Combine(backUpPath, "tmp");
