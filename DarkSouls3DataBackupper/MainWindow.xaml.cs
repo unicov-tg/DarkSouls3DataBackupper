@@ -76,24 +76,37 @@ namespace DarkSouls3DataBackupper
         {
             DisableActions();
 
-            var backUp = InitializeDataBackUp();
-            Action action = () =>
+            try
             {
-                try
+                var backUp = InitializeDataBackUp();
+                Func<bool> action = () =>
                 {
-                    backUp.Save();
-                }
-                catch (Exception ex)
+                    try
+                    {
+                        backUp.Save();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+                    return false;
+                };
+                if(await Task.Run(action))
                 {
-                    MessageBox.Show(ex.Message);
+                    UpdateBackUpList();
+                    backUpFileNameBox.Text = "";
                 }
-            };
-            await Task.Run(action);
-
-            UpdateBackUpList();
-            backUpFileNameBox.Text = "";
-
-            EnableActions();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                EnableActions();
+            }
         }
 
         private DataBackUp InitializeDataBackUp()
