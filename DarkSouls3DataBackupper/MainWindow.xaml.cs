@@ -99,9 +99,15 @@ namespace DarkSouls3DataBackupper
 
         private void restoreButton_Click(object sender, RoutedEventArgs e)
         {
+            var dataRestore = new Models.DataRestore(saveDataDirectoryBox.Text, GetSelectedBackUpFile(), PathUtility.GetTempPath(backUpDirectoryBox.Text));
+            dataRestore.Restore();
+        }
+
+        private string GetSelectedBackUpFile()
+        {
             var index = backUpFileListView.SelectedIndex;
             var selectedFile = BackUpFileList.List[index];
-            Console.WriteLine(selectedFile);
+            return selectedFile.FilePath;
         }
     }
 }
