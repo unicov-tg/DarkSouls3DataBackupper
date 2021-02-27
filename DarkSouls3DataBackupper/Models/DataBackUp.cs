@@ -10,13 +10,11 @@ namespace DarkSouls3DataBackupper.Libs
 {
     class DataBackUp
     {
-        private readonly string[] targetFileNames = new string[2] { "DS30000.sl2", "DS30000.sl3" };
-
         private readonly string saveDataPath;
         private readonly string backUpPath;
         private readonly string backUpFileName;
 
-        private string TempPath => Path.Combine(backUpPath, "tmp");
+        private string TempPath => PathUtility.GetTempPath(backUpPath);
 
         public DataBackUp(string saveDataPath, string backUpPath, string backUpFileName)
         {
@@ -40,7 +38,7 @@ namespace DarkSouls3DataBackupper.Libs
 
         private void CopyCurrentDataToTemp()
         {
-            foreach(var target in targetFileNames)
+            foreach(var target in PathUtility.TargetFileNames)
             {
                 var sourcePath = Path.Combine(saveDataPath, target);
                 var destPath = Path.Combine(TempPath, target);

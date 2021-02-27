@@ -9,6 +9,8 @@ namespace DarkSouls3DataBackupper.Libs
 {
     class PathUtility
     {
+        public static readonly string[] TargetFileNames = new string[2] { "DS30000.sl2", "DS30000.sl3" };
+
         /// <summary>
         /// ダークソウル3のセーブデータパスを取得
         /// </summary>
@@ -22,9 +24,9 @@ namespace DarkSouls3DataBackupper.Libs
             return saveDataDirectoryPath;
         }
 
-        public static void CreateDirectory(string path)
+        public static string GetTempPath(string backUpPath)
         {
-            Directory.CreateDirectory(path);
+            return Path.Combine(backUpPath, "tmp");
         }
     }
 }
