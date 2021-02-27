@@ -12,12 +12,18 @@ namespace DarkSouls3DataBackupper.Models
     {
         public ObservableCollection<BackUpFile> List { get; private set; }
         
-        private readonly string backUpPath;
+        private string backUpPath;
 
         public BackUpFileList(string backUpPath)
         {
             this.backUpPath = backUpPath;
             List = new ObservableCollection<BackUpFile>();
+            UpdateBackUpFileList();
+        }
+
+        public void ChangeDiretory(string path)
+        {
+            backUpPath = path;
             UpdateBackUpFileList();
         }
 
